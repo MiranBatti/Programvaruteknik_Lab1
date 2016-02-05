@@ -36,6 +36,9 @@ public class DataCollectionBuilder {
 			for (int i = 0; i < res.getValue().size(); i++) {
 				tempX += res.getValue().get(i).getXValue();
 				tempY += res.getValue().get(i).getYValue();
+				
+				System.out.println("tempX o Y" +tempX + " " + tempY);
+				
 			}
 
 			finalResult.put(res.getKey(), new MatchedDataPair(tempX/res.getValue().size(),tempY/res.getValue().size()));
@@ -58,12 +61,13 @@ public class DataCollectionBuilder {
 			resultData.put(getLocalDate(xLoop.getKey()), list);
 		}
 
-	setFinalResult(resultData);
+	
 	}
 
 	public DataCollection getResult(){
 		
 		doAthing(); 
+		setFinalResult(resultData);
 		return new DataCollection(xData.getUnit(), yData.getUnit(), getTitle(),finalResult);
 		
 		
@@ -88,6 +92,10 @@ public class DataCollectionBuilder {
 			return localDate.getYear() + "-" + localDate.getMonth();
 		}
 		case QUARTER:
+		{
+			return localDate.getYear()+"";
+		}
+		case YEAR:
 		{
 			return localDate.getYear()+"";
 		}

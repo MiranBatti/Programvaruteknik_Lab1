@@ -7,7 +7,7 @@ public class DataCollection {
 	private String title;
 	private String xUnit, yUnit;
 	
-	public DataCollection(String xUnit, String yUnit, String title, Map data) {
+	public DataCollection(String xUnit, String yUnit, String title, Map<String, MatchedDataPair> data) {
 		this.data = data;
 		this.title = title;
 		this.xUnit = xUnit;
@@ -32,7 +32,7 @@ public class DataCollection {
 
 	@Override
 	public String toString() {
-		return "DataCollection [title=" + title + ", xUnit=" + xUnit + ", yUnit=" + yUnit + "]";
+		return "DataCollection [title=" + title + ", xUnit=" + xUnit + ", yUnit=" + yUnit + data+"]";
 	}
 	
 }
