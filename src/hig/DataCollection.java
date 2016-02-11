@@ -32,7 +32,8 @@ public class DataCollection {
 
 	@Override
 	public String toString() {
-		return "DataCollection [title=" + title + ", xUnit=" + xUnit + ", yUnit=" + yUnit + data+"]";
+		return "DataCollection [title=" + title + ", xUnit=" + xUnit + ", yUnit=" + yUnit +" " + data;
 	}
+
 	
 }

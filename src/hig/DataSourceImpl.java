@@ -18,6 +18,7 @@ public class DataSourceImpl implements DataSource{
 		
 		data.put(ld, d);
 		
+		
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -41,6 +42,7 @@ public class DataSourceImpl implements DataSource{
 	}
 
 	public void setValue(LocalDate ld, Double d){
+		
 		
 		data.put(ld, d);
 	}
