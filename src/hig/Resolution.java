@@ -1,42 +1,42 @@
 package hig;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-public enum Resolution{
-	YEAR{
+public enum Resolution {
+	YEAR {
 		@Override
-		public String setDate(LocalDate ld){
-
-			return String.valueOf(ld.getYear());
+		public String setDate(LocalDate ld) {
+			return String.valueOf(DateTimeFormatter.ofPattern("yyyy"));
+//			return String.valueOf(ld.getYear());
 		}
-	}, 
-	MONTH{
+	}, MONTH{
 		@Override
-		public String setDate(LocalDate ld){
-			return  String.valueOf(ld.getYear()) + "-" + String.valueOf(ld.getMonthValue());
-		}
-
-	}, 
-	QUARTER{
-		@Override
-		public String setDate(LocalDate ld){
-return"";
-
+		public String setDate(LocalDate ld) {
+			return String.valueOf(DateTimeFormatter.ofPattern("yyyy-MM"));
+//			return  String.valueOf(ld.getYear()) + "-" + String.valueOf(ld.getMonthValue());
 		}
 
-	}, 
-	WEEK{
+	}, QUARTER {
 		@Override
-		public String setDate(LocalDate ld){
-return "";
+		public String setDate(LocalDate ld) {
+			return"";
 		}
 
-	}, DAY{
+	}, WEEK {
 		@Override
-		public String setDate(LocalDate ld){
-return String.valueOf(ld.getYear()) +"-"+ String.valueOf(ld.getMonthValue()) +"-"+ String.valueOf(ld.getDayOfMonth());
+		public String setDate(LocalDate ld) {
+			return "";
+		}
+
+	}, DAY {
+		@Override
+		public String setDate(LocalDate ld) { 
+			return String.valueOf(DateTimeFormatter.ISO_DATE);
+//			return String.valueOf(ld.getYear()) +"-"+ String.valueOf(ld.getMonthValue()) +"-"+ String.valueOf(ld.getDayOfMonth());		
 		}
 
 	};
+	
 	public abstract String setDate(LocalDate ld);
 }
