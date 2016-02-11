@@ -12,11 +12,11 @@ public class DataSourceImpl implements DataSource{
 	Map<LocalDate, Double> data;
 	
 	
-	public DataSourceImpl(LocalDate ld, Double d) {
+	public DataSourceImpl() {
 		
 		data = new HashMap<LocalDate, Double>();
 		
-		data.put(ld, d);
+		
 		
 		
 		// TODO Auto-generated constructor stub

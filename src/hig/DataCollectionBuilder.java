@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.sun.corba.se.impl.orbutil.RepositoryIdUtility;
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 
 public class DataCollectionBuilder {
 	private DataSource xData;
@@ -22,7 +23,7 @@ public class DataCollectionBuilder {
 		this.resolution = resolution;
 		finalResult = new HashMap<String, MatchedDataPair>();
 		resultData = new HashMap<String, List<MatchedDataPair>>();
-		
+
 	}
 
 	public String getTitle() {
@@ -31,53 +32,46 @@ public class DataCollectionBuilder {
 
 	private void setFinalResult(Map<String, List <MatchedDataPair>> resultData) {
 
-		for (String res1 : resultData.keySet()) {
-
-			
-			for (List<MatchedDataPair> res2 : resultData.values()) {
-
-
-				System.out.println("Res.size() = " + res2.size());
+		for (Entry<String,List<MatchedDataPair>> res1 : resultData.entrySet()) {
+			//	System.out.println("Res.size() = " + res2.size());
 				Double tempX = 0d;
 				Double tempY = 0d;
-				for (int i = 0; i < res2.size(); i++) {
-					tempX += res2.get(i).getXValue();
-					tempY += res2.get(i).getYValue();
+				for (int i = 0; i < res1.getValue().size(); i++) {
+					tempX += res1.getValue().get(i).getXValue();
+					tempY += res1.getValue().get(i).getYValue();
 
-					System.out.println("tempX & Y " +tempX + " " + tempY);
+				//	System.out.println("tempX & Y " +tempX + " " + tempY);
 
 				}
 
-				
-				
-				finalResult.put(res1, new MatchedDataPair(tempX/res2.size(),tempY/res2.size()));
+				finalResult.put(res1.getKey(), new MatchedDataPair(tempX/res1.getValue().size(),tempY/res1.getValue().size()));
 			}
 			//		return new DataCollection(xData.getUnit(), yData.getUnit(), title, finalResult);
-		}
+		
 	}
 
 	private void doAthing() {
 		List<MatchedDataPair> list;
 
 		for(Entry<LocalDate, Double> xLoop : xData.getData().entrySet()) {
-
+			boolean match = false;
 			list = new ArrayList<>();
 			String date1 = resolution.setDate(xLoop.getKey());
 
 			for (Entry<LocalDate, Double> yLoop : yData.getData().entrySet()) {
 
-				boolean match = false;
+
 				String date2 = resolution.setDate(yLoop.getKey());
 
 				if(date1.equals(date2)) {
 					list.add(new MatchedDataPair(xLoop.getValue(), yLoop.getValue()));
 					match = true;
 				}
-				if(match)
-					resultData.put(xLoop.getKey()+"", list);
+
 
 			}
-
+			if(match)
+				resultData.put(xLoop.getKey()+"", list);
 
 
 
@@ -86,7 +80,7 @@ public class DataCollectionBuilder {
 
 		}
 
-	System.out.println(resultData);
+		System.out.println(resultData);
 
 
 

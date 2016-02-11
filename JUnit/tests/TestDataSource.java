@@ -27,11 +27,11 @@ public class TestDataSource {
 	public void setUp() throws Exception {
 
 			
-		ds1 = new DataSourceImpl(LocalDate.of(2014, 11, 06), 3d);
+		ds1 = new DataSourceImpl();
 		
-		ds2 = new DataSourceImpl(LocalDate.of(2014, 11, 06), 8d);
+		ds2 = new DataSourceImpl();
 
-		dcb = new DataCollectionBuilder(ds1, ds2, Resolution.MONTH);
+		dcb = new DataCollectionBuilder(ds1, ds2, Resolution.DAY);
 
 
 		
@@ -64,18 +64,14 @@ public class TestDataSource {
 	public void testSetValue(){
 		ds1.setValue(LocalDate.of(2014, 11, 18), 8d);
 		ds1.setValue(LocalDate.of(2014, 11, 12), 4d);
-		ds1.setValue(LocalDate.of(2014, 11, 22), 1d);
+		ds1.setValue(LocalDate.of(2014, 10, 22), 1.4);
+		ds1.setValue(LocalDate.of(2014, 11, 20), 7d);
 		
 		ds2.setValue(LocalDate.of(2014, 11, 03), 2d);
 		ds2.setValue(LocalDate.of(2014, 11, 11), 1d);
 		ds2.setValue(LocalDate.of(2014, 11, 12), 9d);
-//		ds1.setValue(LocalDate.parse("2014-11-18", dtf), 7d);
-//		ds1.setValue(LocalDate.parse("2014-11-22", dtf), 1d);
-//		ds2.setValue(LocalDate.parse("2014-11-22", dtf), 2d);
-//		ds2.setValue(LocalDate.parse("2014-11-26", dtf), 5d);
+		ds2.setValue(LocalDate.of(2014, 11, 05), 12d);
 
-	//	System.out.println(ds2.getData());
-		
 		System.out.println(dcb.getResult());
 		for(Entry<LocalDate, Double> ds : ds1.getData().entrySet()) {
 		System.out.println("ds1 " + ds.getValue());
