@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Map.Entry;
 
 import org.junit.Before;
@@ -25,18 +24,9 @@ public class TestDataSource {
 
 	@Before
 	public void setUp() throws Exception {
-
-			
 		ds1 = new DataSourceImpl();
-		
 		ds2 = new DataSourceImpl();
-
 		dcb = new DataCollectionBuilder(ds1, ds2, Resolution.DAY);
-
-
-		
-
-
 	}
 
 //	@Test
@@ -53,13 +43,13 @@ public class TestDataSource {
 	public void testGetData() {
 		System.out.println(ds1.getData());
 	}
+	
 	//@Test
 	public void testMatch(){
 
 		System.out.println(dcb.getResult());
-	
-
 	}
+	
 	@Test
 	public void testSetValue(){
 		ds1.setValue(LocalDate.of(2014, 11, 18), 8d);
@@ -73,15 +63,13 @@ public class TestDataSource {
 		ds2.setValue(LocalDate.of(2014, 11, 05), 12d);
 
 		System.out.println(dcb.getResult());
+		
 		for(Entry<LocalDate, Double> ds : ds1.getData().entrySet()) {
-		System.out.println("ds1 " + ds.getValue());
+			System.out.println("ds1 " + ds.getValue());
 		}
 		for(Entry<LocalDate, Double> ds : ds2.getData().entrySet()) {
-		System.out.println("ds2 " + ds.getValue());
+			System.out.println("ds2 " + ds.getValue());
 		}
-		
-
-	
 
 	}
 }

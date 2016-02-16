@@ -11,42 +11,28 @@ public class DataSourceImpl implements DataSource{
 	
 	Map<LocalDate, Double> data;
 	
-	
 	public DataSourceImpl() {
-		
 		data = new HashMap<LocalDate, Double>();
-		
-		
-		
-		
-		// TODO Auto-generated constructor stub
 	}
 	
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return name;
 	}
 
 	@Override
 	public String getUnit() {
-		// TODO Auto-generated method stub
 		return unit;
 	}
 
 	@Override
 	public Map<LocalDate, Double> getData() {
-		// TODO Auto-generated method stub
 		return data;
 	}
 
 	public void setValue(LocalDate ld, Double d){
-		
-		
 		data.put(ld, d);
 	}
-	
-	
 
 }

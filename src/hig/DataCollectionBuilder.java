@@ -67,36 +67,19 @@ public class DataCollectionBuilder {
 					list.add(new MatchedDataPair(xLoop.getValue(), yLoop.getValue()));
 					match = true;
 				}
-
-
 			}
 			if(match)
 				resultData.put(xLoop.getKey()+"", list);
-
-
-
-
-
-
 		}
-
 		System.out.println(resultData);
-
-
-
 	}
 
 	public DataCollection getResult(){
-
 		doAthing(); 
 		setFinalResult(resultData);
 		return new DataCollection(xData.getUnit(), yData.getUnit(), getTitle(),finalResult);
-
-
-
 	}
-
-
+	
 	private String getLocalDate(LocalDate localDate){
 
 		switch(resolution){
@@ -123,8 +106,6 @@ public class DataCollectionBuilder {
 		}
 
 		}
-
-
 		return "";
 	}
 
