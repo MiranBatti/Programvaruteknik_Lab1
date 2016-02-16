@@ -20,13 +20,13 @@ public enum Resolution {
 	}, QUARTER {
 		@Override
 		public String setDate(LocalDate ld) {
-			return"";
+			return String.valueOf(DateTimeFormatter.ofPattern("yyyy-Q"));
 		}
 
 	}, WEEK {
 		@Override
 		public String setDate(LocalDate ld) {
-			return "";
+			return String.valueOf(DateTimeFormatter.ofPattern("yyyy-w"));
 		}
 
 	}, DAY {
@@ -39,4 +39,5 @@ public enum Resolution {
 	};
 	
 	public abstract String setDate(LocalDate ld);
+	
 }
