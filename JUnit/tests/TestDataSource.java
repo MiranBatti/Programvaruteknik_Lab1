@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import org.junit.Before;
@@ -17,59 +18,82 @@ import hig.Resolution;
 public class TestDataSource {
 
 	DataSource ds;
-	DataSourceImpl ds1;
-	DataSourceImpl ds2;
-	DataCollectionBuilder dcb;
-	DateTimeFormatter dtf;
+	DataSourceImpl dataSourceA;
+	DataSourceImpl dataSourceB;
+	DataCollectionBuilder dataBuilder;
+	DateTimeFormatter dtf; //( ͡° ͜ʖ ͡°)
 
 	@Before
 	public void setUp() throws Exception {
-		ds1 = new DataSourceImpl();
-		ds2 = new DataSourceImpl();
-		dcb = new DataCollectionBuilder(ds1, ds2, Resolution.DAY);
+		dataSourceA = new DataSourceImpl("Temperature", "C");
+		dataSourceB = new DataSourceImpl("Sprint Marathon", "Km");
+		dataBuilder = new DataCollectionBuilder(dataSourceA, dataSourceB, Resolution.DAY);
 	}
 
-//	@Test
-	public void testGetName() {
-		assertEquals(ds1.getName(), "Actual Name");
+	@Test
+	public void testName() {
+		assertEquals(dataSourceA.getName(), "Temperature");
+		assertEquals(dataSourceB.getName(), "Sprint Marathon");
+		assertEquals(dataBuilder.getTitle(), "Temperature, Sprint Marathon");
 	}
 
 	@Test
 	public void testGetUnit() {
 		//System.out.println(ds1.getUnit());
+		assertEquals("C", dataSourceA.getUnit());
+		assertEquals("Km", dataSourceB.getUnit());
 	}
 
 	//@Test
 	public void testGetData() {
-		System.out.println(ds1.getData());
+		dataSourceA.setValue(LocalDate.of(2015, 01, 02), Double.MAX_VALUE);
+		dataSourceA.setValue(LocalDate.of(2016, 11, 24), Double.MIN_VALUE);
+		
+		dataSourceB.setValue(LocalDate.of(1777, 07, 07), 0d);
+		dataSourceB.setValue(LocalDate.of(2013, 2, 23), -7.7);
+		dataSourceB.setValue(LocalDate.of(2014, 8, 8), 6d);
+		
+		Map<LocalDate, Double> map = ds.getData();
+		
+		assertEquals(0d, map.get(LocalDate.of(1777, 07, 07)), 0d);
+		assertEquals(-7.7, map.get(LocalDate.of(2013, 2, 23)), 0d);
+		assertEquals(6d, map.get(LocalDate.of(2014, 8, 8)), 0d);
+		assertEquals(Double.MAX_VALUE, map.get(LocalDate.of(2015, 01, 02)), 0d);
+		assertEquals(Double.MIN_VALUE, map.get(LocalDate.of(2016, 11, 24)), 0d);
 	}
 	
 	//@Test
 	public void testMatch(){
-
-		System.out.println(dcb.getResult());
+		dataSourceA.setValue(LocalDate.of(2014, 11, 18), 8d);
+		dataSourceB.setValue(LocalDate.of(2014, 11, 03), 2d);
+		System.out.println(dataBuilder.getResult());
 	}
 	
 	@Test
 	public void testSetValue(){
-		ds1.setValue(LocalDate.of(2014, 11, 18), 8d);
-		ds1.setValue(LocalDate.of(2014, 11, 12), 4d);
-		ds1.setValue(LocalDate.of(2014, 10, 22), 1.4);
-		ds1.setValue(LocalDate.of(2014, 11, 20), 7d);
+		dataSourceA.setValue(LocalDate.of(2014, 11, 18), 8d);
+		dataSourceA.setValue(LocalDate.of(2014, 11, 12), 4d);
+		dataSourceA.setValue(LocalDate.of(2014, 10, 22), 1.4);
+		dataSourceA.setValue(LocalDate.of(2014, 11, 20), 7d);
 		
-		ds2.setValue(LocalDate.of(2014, 11, 03), 2d);
-		ds2.setValue(LocalDate.of(2014, 11, 11), 1d);
-		ds2.setValue(LocalDate.of(2014, 11, 12), 9d);
-		ds2.setValue(LocalDate.of(2014, 11, 05), 12d);
-
-		System.out.println(dcb.getResult());
+		dataSourceB.setValue(LocalDate.of(2014, 11, 03), 2d);
+		dataSourceB.setValue(LocalDate.of(2014, 11, 11), 1d);
+		dataSourceB.setValue(LocalDate.of(2014, 11, 12), 9d);
+		dataSourceB.setValue(LocalDate.of(2014, 11, 05), 12d);
 		
-		for(Entry<LocalDate, Double> ds : ds1.getData().entrySet()) {
+		System.out.println(dataBuilder.getResult());
+		
+		for(Entry<LocalDate, Double> ds : dataSourceA.getData().entrySet()) {
 			System.out.println("ds1 " + ds.getValue());
 		}
-		for(Entry<LocalDate, Double> ds : ds2.getData().entrySet()) {
+		for(Entry<LocalDate, Double> ds : dataSourceB.getData().entrySet()) {
 			System.out.println("ds2 " + ds.getValue());
 		}
-
+	}
+	
+//	@Test
+	public void testWeek() {
+		dataSourceA.setValue(LocalDate.of(2016, 1, 4), 3d);
+		assertEquals("2016-W1", dataSourceA.getName());
 	}
 }

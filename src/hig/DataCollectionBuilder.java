@@ -27,7 +27,7 @@ public class DataCollectionBuilder {
 	}
 
 	public String getTitle() {
-		return "Title: " + xData.getName() + ", " + yData.getName();
+		return xData.getName() + ", " + yData.getName();
 	}
 
 	private void setFinalResult(Map<String, List <MatchedDataPair>> resultData) {
@@ -80,35 +80,4 @@ public class DataCollectionBuilder {
 		return new DataCollection(xData.getUnit(), yData.getUnit(), getTitle(),finalResult);
 	}
 	
-	private String getLocalDate(LocalDate localDate){
-
-		switch(resolution){
-
-		case DAY:
-		{
-			return localDate.getYear() + "-" + localDate.getMonth() + "-" + localDate.getDayOfMonth();
-		}
-		case WEEK:
-		{
-			return localDate.getYear() + "-" ;
-		}
-		case MONTH:
-		{
-			return localDate.getYear() + "-" + localDate.getMonth();
-		}
-		case QUARTER:
-		{
-			return localDate.getYear()+"";
-		}
-		case YEAR:
-		{
-			return localDate.getYear()+"";
-		}
-
-		}
-		return "";
-	}
-
-
-
 }

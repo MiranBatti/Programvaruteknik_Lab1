@@ -11,8 +11,10 @@ public class DataSourceImpl implements DataSource{
 	
 	Map<LocalDate, Double> data;
 	
-	public DataSourceImpl() {
+	public DataSourceImpl(String name, String unit) {
 		data = new HashMap<LocalDate, Double>();
+		this.name = name;
+		this.unit = unit;
 	}
 	
 
