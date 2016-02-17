@@ -20,7 +20,6 @@ public class DataCollectionBuilder {
 		this.resolution = resolution;
 		finalResult = new HashMap<String, MatchedDataPair>();
 		resultData = new HashMap<String, List<MatchedDataPair>>();
-
 	}
 
 	public String getTitle() {
@@ -47,7 +46,7 @@ public class DataCollectionBuilder {
 		
 	}
 
-	private void doAthing() {
+	private Map<String, List <MatchedDataPair>> doAthing() {
 		List<MatchedDataPair> list;
 
 		for(Entry<LocalDate, Double> xLoop : xData.getData().entrySet()) {
@@ -56,7 +55,6 @@ public class DataCollectionBuilder {
 			String date1 = resolution.setDate(xLoop.getKey());
 
 			for (Entry<LocalDate, Double> yLoop : yData.getData().entrySet()) {
-
 
 				String date2 = resolution.setDate(yLoop.getKey());
 
@@ -68,7 +66,7 @@ public class DataCollectionBuilder {
 			if(match)
 				resultData.put(xLoop.getKey()+"", list);
 		}
-		System.out.println(resultData);
+		return resultData;
 	}
 
 	public DataCollection getResult(){
@@ -76,5 +74,35 @@ public class DataCollectionBuilder {
 		setFinalResult(resultData);
 		return new DataCollection(xData.getUnit(), yData.getUnit(), getTitle(),finalResult);
 	}
+	
+	private String getLocalDate(LocalDate localDate){
+		  
+  		switch(resolution){
+ 
+ 		case DAY:
+ 		{
+ 			return localDate.getYear() + "-" + localDate.getMonth() + "-" + localDate.getDayOfMonth();
+ 		}
+ 		case WEEK:
+ 		{
+ 			return localDate.getYear() + "-" ;
+ 		}
+ 		case MONTH:
+ 		{
+ 			return localDate.getYear() + "-" + localDate.getMonth();
+ 		}
+ 		case QUARTER:
+ 		{
+ 			return localDate.getYear()+"";
+ 		}
+ 		case YEAR:
+ 		{
+ 			return localDate.getYear()+"";
+  		}
+  
+  		}
+  		return "";
+  	}
+	
 	
 }
