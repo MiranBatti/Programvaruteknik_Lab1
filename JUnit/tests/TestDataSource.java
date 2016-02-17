@@ -27,11 +27,11 @@ public class TestDataSource {
 	public void setUp() throws Exception {
 		dataSourceA = new DataSourceImpl("Temperature", "C");
 		dataSourceB = new DataSourceImpl("Sprint Marathon", "Km");
-		dataBuilder = new DataCollectionBuilder(dataSourceA, dataSourceB, Resolution.DAY);
 	}
 
 	@Test
 	public void testName() {
+		dataBuilder = new DataCollectionBuilder(dataSourceA, dataSourceB, Resolution.DAY);
 		assertEquals(dataSourceA.getName(), "Temperature");
 		assertEquals(dataSourceB.getName(), "Sprint Marathon");
 		assertEquals(dataBuilder.getTitle(), "Temperature, Sprint Marathon");
@@ -44,9 +44,11 @@ public class TestDataSource {
 		assertEquals("Km", dataSourceB.getUnit());
 	}
 
-	//@Test
+	@Test
 	public void testGetData() {
-		Map<LocalDate, Double> map = ds.getData();
+		dataBuilder = new DataCollectionBuilder(dataSourceA, dataSourceB, Resolution.DAY);
+		Map<LocalDate, Double> mapA = dataSourceA.getData();
+		Map<LocalDate, Double> mapB = dataSourceB.getData();
 		
 		dataSourceA.setValue(LocalDate.of(2015, 01, 02), Double.MAX_VALUE);
 		dataSourceA.setValue(LocalDate.of(2016, 11, 24), Double.MIN_VALUE);
@@ -55,11 +57,11 @@ public class TestDataSource {
 		dataSourceB.setValue(LocalDate.of(2013, 2, 23), -7.7);
 		dataSourceB.setValue(LocalDate.of(2014, 8, 8), 6d);
 		
-		assertEquals(0d, map.get(LocalDate.of(1777, 07, 07)), 0d);
-		assertEquals(-7.7, map.get(LocalDate.of(2013, 2, 23)), 0d);
-		assertEquals(6d, map.get(LocalDate.of(2014, 8, 8)), 0d);
-		assertEquals(Double.MAX_VALUE, map.get(LocalDate.of(2015, 01, 02)), 0d);
-		assertEquals(Double.MIN_VALUE, map.get(LocalDate.of(2016, 11, 24)), 0d);
+		assertEquals(Double.MAX_VALUE, mapA.get(LocalDate.of(2015, 01, 02)), 0d);
+		assertEquals(Double.MIN_VALUE, mapA.get(LocalDate.of(2016, 11, 24)), 0d);
+		assertEquals(0d, mapB.get(LocalDate.of(1777, 07, 07)), 0d);
+		assertEquals(-7.7, mapB.get(LocalDate.of(2013, 2, 23)), 0d);
+		assertEquals(6d, mapB.get(LocalDate.of(2014, 8, 8)), 0d);
 	}
 	
 	//@Test
@@ -70,7 +72,9 @@ public class TestDataSource {
 	}
 	
 	@Test
-	public void testSetValue(){
+	public void testSetValueDay(){
+		dataBuilder = new DataCollectionBuilder(dataSourceA, dataSourceB, Resolution.DAY);
+		
 		dataSourceA.setValue(LocalDate.of(2014, 11, 18), 8d);
 		dataSourceA.setValue(LocalDate.of(2014, 11, 12), 4d);
 		dataSourceA.setValue(LocalDate.of(2014, 10, 22), 1.4);
