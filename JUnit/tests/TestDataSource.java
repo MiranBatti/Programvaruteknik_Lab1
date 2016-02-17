@@ -46,14 +46,14 @@ public class TestDataSource {
 
 	//@Test
 	public void testGetData() {
+		Map<LocalDate, Double> map = ds.getData();
+		
 		dataSourceA.setValue(LocalDate.of(2015, 01, 02), Double.MAX_VALUE);
 		dataSourceA.setValue(LocalDate.of(2016, 11, 24), Double.MIN_VALUE);
 		
 		dataSourceB.setValue(LocalDate.of(1777, 07, 07), 0d);
 		dataSourceB.setValue(LocalDate.of(2013, 2, 23), -7.7);
 		dataSourceB.setValue(LocalDate.of(2014, 8, 8), 6d);
-		
-		Map<LocalDate, Double> map = ds.getData();
 		
 		assertEquals(0d, map.get(LocalDate.of(1777, 07, 07)), 0d);
 		assertEquals(-7.7, map.get(LocalDate.of(2013, 2, 23)), 0d);
