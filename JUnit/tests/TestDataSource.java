@@ -50,16 +50,11 @@ public class TestDataSource {
 		Map<LocalDate, Double> mapA = dataSourceA.getData();
 		Map<LocalDate, Double> mapB = dataSourceB.getData();
 		
-		dataSourceA.setValue(LocalDate.of(2015, 01, 02), Double.MAX_VALUE);
-		dataSourceA.setValue(LocalDate.of(2016, 11, 24), Double.MIN_VALUE);
-		
-		dataSourceB.setValue(LocalDate.of(1777, 07, 07), 0d);
+		dataSourceA.setValue(LocalDate.of(1777, 07, 07), 0d);
 		dataSourceB.setValue(LocalDate.of(2013, 2, 23), -7.7);
 		dataSourceB.setValue(LocalDate.of(2014, 8, 8), 6d);
-		
-		assertEquals(Double.MAX_VALUE, mapA.get(LocalDate.of(2015, 01, 02)), 0d);
-		assertEquals(Double.MIN_VALUE, mapA.get(LocalDate.of(2016, 11, 24)), 0d);
-		assertEquals(0d, mapB.get(LocalDate.of(1777, 07, 07)), 0d);
+;
+		assertEquals(0d, mapA.get(LocalDate.of(1777, 07, 07)), 0d);
 		assertEquals(-7.7, mapB.get(LocalDate.of(2013, 2, 23)), 0d);
 		assertEquals(6d, mapB.get(LocalDate.of(2014, 8, 8)), 0d);
 	}
