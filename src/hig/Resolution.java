@@ -4,40 +4,26 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public enum Resolution {
-	YEAR {
-		@Override
-		public String setDate(LocalDate ld) {
-			return String.valueOf(DateTimeFormatter.ofPattern("yyyy"));
-//			return String.valueOf(ld.getYear());
-		}
-	}, MONTH{
-		@Override
-		public String setDate(LocalDate ld) {
-			return String.valueOf(DateTimeFormatter.ofPattern("yyyy-MM"));
-//			return  String.valueOf(ld.getYear()) + "-" + String.valueOf(ld.getMonthValue());
-		}
 
-	}, QUARTER {
-		@Override
-		public String setDate(LocalDate ld) {
-			return String.valueOf(DateTimeFormatter.ofPattern("yyyy-Q"));
-		}
+	YEAR("yyyy"),
 
-	}, WEEK {
-		@Override
-		public String setDate(LocalDate ld) {
-			return String.valueOf(DateTimeFormatter.ofPattern("yyyy-w"));
-		}
+	MONTH("yyyy-MM"),
 
-	}, DAY {
-		@Override
-		public String setDate(LocalDate ld) { 
-			return String.valueOf(DateTimeFormatter.ISO_DATE);
-//			return String.valueOf(ld.getYear()) +"-"+ String.valueOf(ld.getMonthValue()) +"-"+ String.valueOf(ld.getDayOfMonth());		
-		}
+	QUARTER("yyyy-'Q'q"),
 
-	};
-	
-	public abstract String setDate(LocalDate ld);
-	
+	WEEK("YYYY-'W'w"),
+
+	DAY("yyyy-MM-dd");
+
+	final DateTimeFormatter dtf;
+
+	public String setDate(LocalDate ld) {
+		return ld.format(dtf);
+	}
+
+	private Resolution(String pattern) {
+
+		dtf = DateTimeFormatter.ofPattern(pattern);
+	}
+
 }

@@ -26,7 +26,7 @@ public class DataCollectionBuilder {
 		return xData.getName() + ", " + yData.getName();
 	}
 
-	private void setFinalResult(Map<String, List <MatchedDataPair>> resultData) {
+	private Map<String, MatchedDataPair> setFinalResult(Map<String, List <MatchedDataPair>> resultData) {
 
 		for (Entry<String,List<MatchedDataPair>> res1 : resultData.entrySet()) {
 			//	System.out.println("Res.size() = " + res2.size());
@@ -43,7 +43,7 @@ public class DataCollectionBuilder {
 				finalResult.put(res1.getKey(), new MatchedDataPair(tempX/res1.getValue().size(),tempY/res1.getValue().size()));
 			}
 			//		return new DataCollection(xData.getUnit(), yData.getUnit(), title, finalResult);
-		
+		return finalResult;
 	}
 
 	private Map<String, List <MatchedDataPair>> doAthing() {
@@ -71,7 +71,7 @@ public class DataCollectionBuilder {
 
 	public DataCollection getResult(){
 		doAthing(); 
-		setFinalResult(resultData);
+		finalResult = setFinalResult(resultData);
 		return new DataCollection(xData.getUnit(), yData.getUnit(), getTitle(),finalResult);
 	}
 	
