@@ -31,7 +31,7 @@ public class TestDataSource {
 		
 		ds2 = new DataSourceImpl();
 
-		dcb = new DataCollectionBuilder(ds1, ds2, Resolution.DAY);
+		dcb = new DataCollectionBuilder(ds1, ds2, Resolution.QUARTER);
 
 
 		
@@ -62,22 +62,24 @@ public class TestDataSource {
 	}
 	@Test
 	public void testSetValue(){
-		ds1.setValue(LocalDate.of(2014, 11, 18), 8d);
-		ds1.setValue(LocalDate.of(2014, 11, 12), 4d);
-		ds1.setValue(LocalDate.of(2014, 10, 22), 1.4);
-		ds1.setValue(LocalDate.of(2014, 11, 20), 7d);
+		ds1.setValue(LocalDate.of(2014, 12, 18), 8d);
+		ds1.setValue(LocalDate.of(2014, 1, 12), 4d);
+		ds1.setValue(LocalDate.of(2014, 8, 22), 1.4);
+		ds1.setValue(LocalDate.of(2014, 10, 20), 7d);
 		
-		ds2.setValue(LocalDate.of(2014, 11, 03), 2d);
-		ds2.setValue(LocalDate.of(2014, 11, 11), 1d);
-		ds2.setValue(LocalDate.of(2014, 11, 12), 9d);
-		ds2.setValue(LocalDate.of(2014, 11, 05), 12d);
+		ds2.setValue(LocalDate.of(2014, 3, 18), 2d);
+		ds2.setValue(LocalDate.of(2014, 12, 11), 1d);
+		ds2.setValue(LocalDate.of(2014, 7, 12), 9d);
+		ds2.setValue(LocalDate.of(2014, 12, 19), 12d);
 
 		System.out.println(dcb.getResult());
 		for(Entry<LocalDate, Double> ds : ds1.getData().entrySet()) {
-		System.out.println("ds1 " + ds.getValue());
+			System.out.println("1 " +ds);
+		
 		}
 		for(Entry<LocalDate, Double> ds : ds2.getData().entrySet()) {
-		System.out.println("ds2 " + ds.getValue());
+			System.out.println("2 "+ ds);
+		
 		}
 		
 
